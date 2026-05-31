@@ -11,3 +11,9 @@ desktop.ini
 
 # Vercel
 .vercel/
+
+# Deck build artifacts (keep build-deck.js, ignore renders + duplicates)
+deck-build/shots/
+deck-build/*.pdf
+deck-build/*.pptx
+deck-build/node_modules/
