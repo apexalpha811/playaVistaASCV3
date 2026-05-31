@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playa Vista ASC &amp; Rejuvenation Clinic — Investor Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A0A0F;
+  --lime:#B6C800;
+  --blue:#1D00C6;
+  --text:#FFFFFF;
+  --sub:#A0A0A8;
+  --card:#12121A;
+  --border:#1E1E2E;
+  --radius:10px;
+  --pad-sec:80px;
+  --maxw:1200px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(60vw 60vw at 85% -10%, rgba(182,200,0,0.10), transparent 60%),
+    radial-gradient(55vw 55vw at -10% 110%, rgba(29,0,198,0.18), transparent 60%),
+    var(--bg);
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0.035;
+  background-image:radial-gradient(rgba(255,255,255,0.6) 1px,transparent 1px);
+  background-size:3px 3px;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;height:auto}
+
+/* ---------- NAV ---------- */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,15,0.82);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{
+  max-width:var(--maxw);margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 24px;gap:24px;
+}
+.logo{display:flex;align-items:center;font-weight:800;letter-spacing:.5px;font-size:.92rem;line-height:1.1}
+.logo small{display:block;color:var(--sub);font-weight:500;font-size:.62rem;letter-spacing:2px;text-transform:uppercase}
+nav.tabs{display:flex;gap:4px;flex-wrap:wrap}
+nav.tabs button{
+  background:none;border:none;color:var(--sub);cursor:pointer;
+  font-family:inherit;font-size:.82rem;font-weight:600;
+  padding:8px 12px;border-radius:7px;transition:color .2s ease,background .2s ease;white-space:nowrap;
+}
+nav.tabs button:hover{color:var(--text)}
+nav.tabs button.active{color:var(--bg);background:var(--lime)}
+.hamburger{display:none;background:none;border:1px solid var(--border);border-radius:8px;color:var(--text);width:42px;height:38px;cursor:pointer;font-size:1.1rem}
+
+/* ---------- SECTIONS ---------- */
+main{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.tab-section{display:none;animation:fade .2s ease}
+.tab-section.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.sec{padding:var(--pad-sec) 0}
+.eyebrow{color:var(--lime);font-weight:700;font-size:.72rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px}
+h1{font-size:clamp(2rem,6vw,4rem);font-weight:900;line-height:1.02;letter-spacing:-1px}
+h2{font-size:clamp(1.5rem,4vw,2.4rem);font-weight:800;line-height:1.1;letter-spacing:-.5px;margin-bottom:8px}
+h3{font-size:1.15rem;font-weight:700;margin-bottom:6px}
+p.lead{color:var(--sub);font-size:clamp(1rem,2vw,1.2rem);max-width:760px}
+.muted{color:var(--sub)}
+
+/* projected tag — small honesty label */
+.proj-tag{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid var(--border);padding:3px 8px;border-radius:4px;vertical-align:middle;margin-left:6px}
+
+/* cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:0 20px 46px -14px rgba(62,0,219,0.50)}
+.grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+
+/* badges */
+.badge{display:inline-block;font-size:.66rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:5px 11px;border-radius:999px;vertical-align:middle}
+.badge.p1{background:var(--lime);color:#0A0A0F}
+.badge.p2{background:var(--blue);color:#fff}
+.badge.inplace{background:var(--lime);color:#0A0A0F}
+.badge.recruiting{background:#333350;color:#fff}
+.badge.tbd{background:#2A2A3A;color:var(--sub)}
+
+/* hero */
+.hero{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(56px,9vh,110px) 0 56px;position:relative;
+}
+.hero h1 .accent{color:var(--lime)}
+.hero-rule{width:74px;height:4px;background:var(--lime);border-radius:2px;margin-top:26px}
+.hero-claim{
+  margin-top:28px;font-size:clamp(1.05rem,2.3vw,1.45rem);font-weight:700;color:var(--text);max-width:820px;line-height:1.35;
+}
+.hero-claim .hl{color:var(--lime)}
+.hero .est{display:flex;gap:18px;flex-wrap:wrap;color:var(--sub);font-size:.85rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-top:26px}
+.hero .est span{display:flex;align-items:center;gap:8px}
+.hero .est i{width:6px;height:6px;border-radius:50%;background:var(--lime);font-style:normal}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.hero-cta .btn{margin-top:0;border:none;font-family:inherit;font-size:.95rem;cursor:pointer}
+.btn-ghost{display:inline-flex;align-items:center;padding:15px 28px;border-radius:999px;border:1px solid var(--border);background:none;color:var(--text);font-family:inherit;font-weight:700;font-size:.95rem;cursor:pointer;transition:border-color .2s ease,color .2s ease}
+.btn-ghost:hover{border-color:var(--lime);color:var(--lime)}
+.hero-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px;border-top:1px solid var(--border);padding-top:30px}
+.hm-n{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;color:var(--lime);letter-spacing:-1px;line-height:1}
+.hm-l{color:var(--sub);font-size:.8rem;margin-top:8px;font-weight:600;line-height:1.3}
+
+/* stat cards */
+.statcard{text-align:left}
+.statcard .num{font-size:clamp(2.4rem,6vw,3.6rem);font-weight:900;line-height:1;color:var(--lime);letter-spacing:-1px}
+.statcard .lbl{color:var(--sub);margin-top:10px;font-size:.95rem}
+
+.bigstat{font-size:clamp(3rem,11vw,7rem);font-weight:900;color:var(--lime);line-height:.95;letter-spacing:-2px}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+
+/* tables */
+.tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);
+  background-color:var(--card);
+  background-image:
+    linear-gradient(to right, var(--card) 34%, rgba(18,18,26,0)),
+    linear-gradient(to left, var(--card) 34%, rgba(18,18,26,0)),
+    linear-gradient(to right, rgba(182,200,0,.30), rgba(182,200,0,0)),
+    linear-gradient(to left, rgba(182,200,0,.30), rgba(182,200,0,0));
+  background-position:left center,right center,left center,right center;
+  background-repeat:no-repeat;
+  background-size:30px 100%,30px 100%,16px 100%,16px 100%;
+  background-attachment:local,local,scroll,scroll;
+}
+.scrollhint{display:none}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.88rem}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+th{color:var(--lime);font-weight:700;font-size:.74rem;letter-spacing:1px;text-transform:uppercase;background:rgba(255,255,255,0.02)}
+tbody tr:hover{background:rgba(255,255,255,0.025)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr.total td{font-weight:800;color:var(--lime);border-top:2px solid var(--lime);background:rgba(182,200,0,0.06)}
+tr.cat td{background:rgba(29,0,198,0.14);font-weight:800;letter-spacing:1px;text-transform:uppercase;font-size:.72rem;color:#cdd6ff}
+.p2row td:first-child::after{content:" ▸ PHASE 2";color:var(--blue);font-weight:800;font-size:.66rem;letter-spacing:1px}
+
+/* subnav (tab 4) */
+.subnav{display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:64px;z-index:20;background:rgba(10,10,15,0.82);backdrop-filter:blur(10px);padding:14px 0;margin-bottom:8px;border-bottom:1px solid var(--border)}
+.subnav a{font-size:.78rem;font-weight:600;color:var(--sub);padding:7px 13px;border:1px solid var(--border);border-radius:999px;transition:.2s}
+.subnav a:hover{color:var(--text);border-color:var(--lime)}
+.subnav a.on{color:#0A0A0F;background:var(--lime);border-color:var(--lime)}
+.anchor{scroll-margin-top:130px}
+
+/* revenue stream cards */
+.rev .val{font-size:1.8rem;font-weight:900;color:var(--lime);letter-spacing:-1px}
+.rev .meta{color:var(--sub);margin-top:6px;font-size:.9rem}
+
+/* category grid on Services */
+.catcard{display:flex;flex-direction:column;gap:6px}
+.catcard .ct{font-size:.66rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--sub)}
+.catcard h3{margin:0}
+.catcard .lines{color:var(--sub);font-size:.84rem}
+.catcard .mo{font-size:1.05rem;font-weight:800;color:var(--lime);font-variant-numeric:tabular-nums;margin-top:8px}
+
+/* expandable appendix */
+details.appendix{margin-top:28px;border:1px solid var(--border);border-radius:var(--radius);background:var(--card);overflow:hidden}
+details.appendix summary{cursor:pointer;padding:18px 22px;font-weight:700;font-size:.92rem;color:var(--text);list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px}
+details.appendix summary::-webkit-details-marker{display:none}
+details.appendix summary::after{content:"+";font-size:1.4rem;font-weight:300;color:var(--lime);transition:transform .2s ease;line-height:1}
+details.appendix[open] summary::after{transform:rotate(45deg)}
+details.appendix summary:hover{background:rgba(255,255,255,0.025)}
+details.appendix .inner{padding:0 22px 22px}
+details.appendix .summary-sub{display:block;color:var(--sub);font-size:.74rem;font-weight:500;letter-spacing:.5px;text-transform:none;margin-top:4px}
+
+/* potential analysis cards */
+.scenario{border-width:1.5px;padding:26px;position:relative;background:linear-gradient(180deg,rgba(255,255,255,0.025),var(--card))}
+.scenario.low{border-color:rgba(255,90,90,0.5)}
+.scenario.base{border-color:var(--lime);box-shadow:0 0 0 1px var(--lime),0 18px 46px rgba(182,200,0,0.16)}
+.scenario.up{border-color:#5b6bff}
+.scenario .sc-tag{font-size:.7rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--sub)}
+.scenario.base .sc-tag{color:var(--lime)}
+.scenario .sc-pill{position:absolute;top:-11px;right:18px;background:var(--lime);color:#0A0A0F;font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:4px 11px;border-radius:999px}
+.scenario .sc-hero{font-size:clamp(1.7rem,3.4vw,2.1rem);font-weight:900;letter-spacing:-1px;line-height:1.02;margin:8px 0 2px}
+.scenario.low .sc-hero{color:#ff9b9b}
+.scenario.base .sc-hero{color:var(--lime)}
+.scenario.up .sc-hero{color:#8a97ff}
+.scenario .sc-sub{color:var(--sub);font-size:.78rem;font-weight:600;margin-bottom:16px}
+.scenario .row{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed var(--border);font-size:.9rem}
+.scenario .row:last-child{border-bottom:none}
+.scenario .row span:first-child{color:var(--sub)}
+.scenario .row span:last-child{font-weight:700;font-variant-numeric:tabular-nums}
+
+/* video */
+.video-wrap{max-width:900px;margin:0 auto;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#000;box-shadow:0 24px 54px -16px rgba(62,0,219,0.55);line-height:0}
+.video-wrap video{display:block;width:100%;height:auto}
+
+/* timeline */
+.timeline{display:flex;gap:0;overflow-x:auto;padding:10px 0 4px;counter-reset:tl}
+.tl-item{flex:1 0 200px;position:relative;padding:0 14px}
+.tl-item .dot{width:16px;height:16px;border-radius:50%;background:var(--lime);border:3px solid var(--bg);position:relative;z-index:2;box-shadow:0 0 0 3px rgba(182,200,0,0.25)}
+.tl-item::before{content:"";position:absolute;left:0;right:0;top:6px;height:3px;background:linear-gradient(90deg,var(--blue),var(--lime))}
+.tl-item:first-child::before{left:50%}
+.tl-item:last-child::before{right:50%}
+.tl-item .when{color:var(--lime);font-weight:800;font-size:.82rem;margin-top:14px}
+.tl-item .what{font-weight:700;margin-top:4px}
+.tl-item .desc{color:var(--sub);font-size:.82rem;margin-top:4px}
+
+/* ramp chart */
+.rampchart-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);padding:40px 22px 14px;margin-bottom:22px;
+  background-color:var(--card);
+  background-image:
+    linear-gradient(to right, var(--card) 34%, rgba(18,18,26,0)),
+    linear-gradient(to left, var(--card) 34%, rgba(18,18,26,0)),
+    linear-gradient(to right, rgba(182,200,0,.30), rgba(182,200,0,0)),
+    linear-gradient(to left, rgba(182,200,0,.30), rgba(182,200,0,0));
+  background-position:left center,right center,left center,right center;
+  background-repeat:no-repeat;
+  background-size:30px 100%,30px 100%,16px 100%,16px 100%;
+  background-attachment:local,local,scroll,scroll;
+}
+.rampchart{position:relative;display:flex;gap:12px;min-width:660px;height:300px}
+.rampchart::before{content:"";position:absolute;left:0;right:0;top:190px;height:1px;background:#2c2c40;z-index:1}
+.rampchart .axis0{position:absolute;left:0;top:190px;transform:translateY(-50%);font-size:.64rem;color:var(--sub);background:var(--card);padding-right:7px;z-index:2;font-variant-numeric:tabular-nums}
+.rc-col{flex:1;position:relative;height:100%}
+.rc-col.be{background:linear-gradient(180deg,transparent,rgba(255,200,80,0.07),transparent);border-radius:6px}
+.rc-flag{position:absolute;top:120px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:.58rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#ffc850;background:rgba(255,200,80,0.12);border:1px solid rgba(255,200,80,0.4);padding:3px 9px;border-radius:999px;z-index:3}
+.rc-bar{position:absolute;left:20%;right:20%;z-index:2;transition:height .6s cubic-bezier(.4,0,.2,1)}
+.rc-bar.pos{bottom:110px;border-radius:5px 5px 0 0;background:linear-gradient(180deg,var(--lime),#7d8a00)}
+.rc-bar.neg{top:191px;border-radius:0 0 5px 5px;background:linear-gradient(180deg,#c2435a,#e2557a)}
+.rc-val{position:absolute;left:0;right:0;text-align:center;font-size:.64rem;font-weight:800;font-variant-numeric:tabular-nums;z-index:2}
+.rc-val.pos{color:var(--lime)}
+.rc-val.neg{color:#ff9b9b}
+.rc-months{display:flex;gap:12px;min-width:660px;margin-top:9px}
+.rc-months span{flex:1;text-align:center;font-size:.66rem;color:var(--sub);font-weight:600}
+.rc-months span.be{color:#ffc850}
+.ramp-note{margin-top:10px;color:var(--sub);font-size:.85rem;text-align:center;font-style:italic}
+.ramp-note b{color:#ffc850;font-style:normal}
+/* op-income color coding in ramp table */
+.opp{color:var(--lime)!important;font-weight:700}
+.opn{color:#ff9b9b!important;font-weight:700}
+.opt{color:#ffc850!important;font-weight:700}
+
+/* facility cards */
+.facility .card{position:relative;padding-top:30px;display:flex;flex-direction:column;justify-content:center;min-height:150px}
+.facility .card::before{content:"";position:absolute;top:0;left:24px;width:38px;height:3px;border-radius:2px;background:var(--lime)}
+.facility h3{margin-bottom:8px}
+.facility p{margin:0}
+
+/* callout boxes */
+.callout{background:linear-gradient(180deg,rgba(29,0,198,0.12),var(--card));border:1px solid var(--border);border-left:3px solid var(--lime);border-radius:var(--radius);padding:22px;box-shadow:0 20px 46px -14px rgba(62,0,219,0.50)}
+
+/* P&L statement */
+.pnl{padding:14px 24px}
+.pnl .line{display:grid;grid-template-columns:1fr auto 52px;column-gap:18px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--border);font-size:.92rem}
+.pnl .line span:nth-child(2){color:var(--sub);font-variant-numeric:tabular-nums;text-align:right;letter-spacing:.2px}
+.pnl .line span:last-child{color:var(--sub);text-align:right;font-variant-numeric:tabular-nums;font-size:.82rem}
+.pnl .line.neg span:nth-child(2){color:#e88}
+.pnl .line.sub{font-weight:700;background:rgba(255,255,255,0.035);margin:6px -24px;padding:11px 24px;border-bottom:none}
+.pnl .line.sub span:nth-child(2){color:var(--lime)}
+.pnl .line.sub.neg span:nth-child(2){color:var(--lime)}
+.pnl .line.tier{margin-top:14px;position:relative}
+.pnl .line.tier::before{content:"";position:absolute;top:-7px;left:0;right:0;height:1px;background:var(--border)}
+.pnl .line.op{font-weight:900;font-size:1.12rem;border-top:2px solid var(--lime);border-bottom:none;margin:8px -24px 0;padding:14px 24px 6px}
+.pnl .line.op span:nth-child(2){color:var(--lime)}
+.pnl .foot{margin:0 -24px;padding:4px 24px 6px;border:none}
+.pnl .foot span:first-child{color:var(--sub);font-size:.86rem}
+.pnl .foot span:nth-child(2){color:var(--lime);font-weight:800}
+
+/* ASK BLOCK — the headline raise card on Investment tab */
+.ask-block{
+  position:relative;
+  border:1.5px solid var(--lime);
+  border-radius:14px;
+  padding:32px 28px;
+  background:linear-gradient(135deg,rgba(182,200,0,0.10),rgba(29,0,198,0.18));
+  box-shadow:0 24px 54px -16px rgba(182,200,0,0.28);
+  margin-bottom:14px;
+}
+.ask-block .ask-eyebrow{color:var(--lime);font-weight:800;font-size:.7rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px}
+.ask-block .ask-amt{font-size:clamp(3rem,9vw,5.5rem);font-weight:900;color:var(--lime);line-height:.95;letter-spacing:-2px}
+.ask-block .ask-sub{color:var(--text);font-size:clamp(1rem,2vw,1.2rem);font-weight:600;margin-top:14px;max-width:680px;line-height:1.4}
+.ask-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px;border-top:1px solid rgba(255,255,255,0.08);padding-top:24px}
+.ask-grid .ag-lbl{color:var(--sub);font-size:.66rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.ask-grid .ag-val{font-size:1rem;font-weight:700;color:var(--text);line-height:1.3}
+.ask-grid .ag-val .ph{color:var(--lime);background:rgba(182,200,0,0.10);border:1px dashed rgba(182,200,0,0.5);padding:2px 8px;border-radius:6px;font-size:.85rem;font-weight:700;letter-spacing:.5px}
+
+/* expansion cards */
+.exp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.exp-card{position:relative;padding:26px;border:1px solid var(--border);border-radius:var(--radius);background:linear-gradient(180deg,rgba(255,255,255,0.025),var(--card));overflow:hidden}
+.exp-card::before{content:"";position:absolute;top:0;left:0;width:60px;height:3px;background:var(--lime)}
+.exp-card .ec-num{font-size:.7rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--sub)}
+.exp-card h3{margin-top:6px;margin-bottom:10px}
+.exp-card p{color:var(--sub);font-size:.95rem;margin:0}
+.exp-card .ec-tag{display:inline-block;margin-top:14px;font-size:.7rem;font-weight:700;letter-spacing:1px;color:var(--lime);text-transform:uppercase}
+
+/* why-now / next steps */
+.step{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border)}
+.step .n{font-size:1.4rem;font-weight:900;color:var(--lime);flex:0 0 auto;min-width:38px;letter-spacing:-1px}
+
+/* CTA */
+.cta{text-align:center;padding:70px 24px;margin:40px 0;border-radius:16px;
+  background:linear-gradient(135deg,rgba(182,200,0,0.12),rgba(29,0,198,0.22));
+  border:1px solid var(--border);box-shadow:0 24px 54px -16px rgba(62,0,219,0.55)}
+.cta h2{font-size:clamp(1.6rem,5vw,3rem)}
+.btn{display:inline-block;margin-top:22px;background:var(--lime);color:#0A0A0F;font-weight:800;
+  padding:15px 34px;border-radius:999px;letter-spacing:.5px;transition:transform .2s ease,box-shadow .2s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(182,200,0,0.3)}
+
+footer{border-top:1px solid var(--border);margin-top:40px;padding:34px 24px;text-align:center;color:var(--sub);font-size:.8rem;letter-spacing:.5px}
+
+/* utility */
+.mt{margin-top:18px}.mt2{margin-top:32px}.mb{margin-bottom:18px}
+.center{text-align:center}
+.flexwrap{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:1px solid var(--border);border-radius:999px;padding:8px 15px;font-size:.85rem;font-weight:600;color:var(--sub)}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:1024px){
+  .g4{grid-template-columns:repeat(2,1fr)}
+  .exp-grid{grid-template-columns:1fr}
+  .ask-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:768px){
+  :root{--pad-sec:48px}
+  nav.tabs{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(10,10,15,0.97);border-bottom:1px solid var(--border);padding:10px 16px;gap:2px}
+  nav.tabs.open{display:flex}
+  nav.tabs button{text-align:left;padding:12px;width:100%;font-size:.95rem}
+  .hamburger{display:block}
+  .g3,.g2,.g4{grid-template-columns:1fr}
+  .split{grid-template-columns:1fr}
+  .subnav{top:60px}
+  .hero-metrics{grid-template-columns:1fr;gap:24px}
+  .hero-cta .btn,.hero-cta .btn-ghost{flex:1;justify-content:center;text-align:center}
+  .ask-grid{grid-template-columns:1fr;gap:18px}
+  .timeline{flex-direction:column;overflow-x:visible;padding:6px 0 0}
+  .tl-item{flex:0 0 auto;padding:0 0 26px 30px}
+  .tl-item::before{left:6px;right:auto;top:9px;bottom:-3px;width:3px;height:auto;background:linear-gradient(180deg,var(--blue),var(--lime))}
+  .tl-item:first-child::before{left:6px}
+  .tl-item:last-child::before{display:none}
+  .tl-item .dot{position:absolute;left:0;top:1px}
+  .tl-item .when{margin-top:0}
+  .scrollhint{display:flex;justify-content:flex-end;align-items:center;gap:6px;font-size:.7rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--lime);margin-bottom:9px}
+  .scrollhint span{animation:swipe 1.4s ease-in-out 4}
+}
+@keyframes swipe{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+@media(min-width:1920px){
+  :root{--maxw:1360px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <div class="logo">
+      <span>PLAYA VISTA ASC<small>&amp; Rejuvenation Clinic</small></span>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button data-tab="overview" class="active">Overview</button>
+      <button data-tab="opportunity">Opportunity</button>
+      <button data-tab="services">Services</button>
+      <button data-tab="model">Model &amp; Financials</button>
+      <button data-tab="facility">Facility &amp; Timeline</button>
+      <button data-tab="investment">Investment</button>
+      <button data-tab="team">Team &amp; Next Steps</button>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ TAB 1 — OVERVIEW ============ -->
+<section class="tab-section active" id="overview">
+  <div class="hero">
+    <div class="eyebrow">Established 2026 · Playa Vista, CA</div>
+    <h1>PLAYA VISTA <span class="accent">ASC</span><br>&amp; REJUVENATION CLINIC</h1>
+    <div class="hero-rule"></div>
+    <p class="hero-claim">
+      <span class="hl">Cash-flow positive on the clinic alone</span> — 10+ months before the first OR ever opens.
+    </p>
+    <p class="lead mt">A vertically integrated surgical and wellness destination — where longevity programming accelerates surgical outcomes and cash-pay wellness funds the buildout.</p>
+    <div class="est">
+      <span><i></i>Established 2026</span>
+      <span><i></i>Playa Vista, California</span>
+      <span><i></i>Confidential Investor Brief</span>
+    </div>
+    <div class="hero-cta">
+      <button class="btn" data-goto="opportunity">Explore the Opportunity →</button>
+      <a class="btn-ghost" href="mailto:Laura@culvercitysurgical.com">Contact</a>
+    </div>
+    <div class="hero-metrics">
+      <div class="hm"><div class="hm-n">$43B+</div><div class="hm-l">U.S. ASC market</div></div>
+      <div class="hm"><div class="hm-n">~67%</div><div class="hm-l">Blended margin at stabilization</div></div>
+      <div class="hm"><div class="hm-n">~$6.3M</div><div class="hm-l">Annual operating income<span class="proj-tag">Projected · Base Case</span></div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="eyebrow">The Problem</div>
+    <div class="grid g3">
+      <div class="card statcard"><div class="num" data-count="6-12" data-suffix=" WK">6–12 WK</div><div class="lbl">Surgical wait times patients endure for outpatient procedures.</div></div>
+      <div class="card statcard"><div class="num" data-count="0">0</div><div class="lbl">Integrated luxury ASC + wellness facilities on the Westside today.</div></div>
+      <div class="card statcard"><div class="num" data-count="3" data-suffix="+">3+</div><div class="lbl">Disconnected providers patients must navigate for surgery, recovery, and wellness.</div></div>
+    </div>
+  </div>
+
+  <div class="sec grid g3">
+    <div class="callout">
+      <h3>Mission</h3>
+      <p class="muted mt">Deliver world-class outpatient surgical care and evidence-based rejuvenation under one roof — premium healthcare made accessible, efficient, and transformative.</p>
+    </div>
+    <div class="callout">
+      <h3>Vision</h3>
+      <p class="muted mt">Become the leading vertically integrated ambulatory surgery and longevity destination on LA's Westside — known for clinical excellence, outcomes, and innovation.</p>
+    </div>
+    <div class="callout">
+      <h3>Philosophy</h3>
+      <p class="muted mt">We believe surgical outcomes improve when patients are optimized before procedures and supported with evidence-based recovery, regenerative, and longevity protocols afterward.</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="eyebrow">Watch</div>
+    <h2>See the Vision</h2>
+    <div class="video-wrap mt2">
+      <video controls controlsList="nodownload" preload="metadata" playsinline oncontextmenu="return false">
+        <source src="PlayavistaASC.mp4" type="video/mp4">
+        Your browser does not support embedded video.
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAB 2 — OPPORTUNITY ============ -->
+<section class="tab-section" id="opportunity">
+  <div class="sec">
+    <div class="eyebrow">Why Now, Why Westside</div>
+    <h2>The Opening</h2>
+    <div class="grid g3 mt2">
+      <div class="card"><h3>Unserved Westside</h3><p class="muted">No luxury ASC on the Westside integrates wellness into surgical care.</p></div>
+      <div class="card"><h3>Dual-Stream Unlock</h3><p class="muted">Insurance-backed surgical revenue and cash-pay wellness revenue, combined under one roof.</p></div>
+      <div class="card"><h3>Early Cash Flow</h3><p class="muted">Phase 1 clinic revenue starts 10+ months before OR activation — capital works while accreditation runs.</p></div>
+    </div>
+
+    <div class="mt2">
+      <div class="eyebrow">Target Geography</div>
+      <div class="flexwrap">
+        <span class="chip">Playa Vista</span>
+        <span class="chip">Culver City</span>
+        <span class="chip">Marina del Rey</span>
+        <span class="chip">Santa Monica</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAB 3 — SERVICES ============ -->
+<section class="tab-section" id="services">
+  <div class="sec">
+    <div class="eyebrow">Service Portfolio</div>
+    <h2>Three Revenue Streams · One Facility</h2>
+    <p class="lead mt mb">6,000–6,500 SF in Playa Vista. Phase 1 launches at Month 3–6; Phase 2 ORs activate at Month 16.</p>
+
+    <div class="grid g3 mt2">
+      <div class="card rev">
+        <span class="badge p1">Phase 1 · Mo 3–6</span>
+        <h3 class="mt">Wellness + Aesthetics</h3>
+        <div class="val mt">$419K/mo</div>
+        <div class="meta">73% margin · cash-pay · funds the OR build</div>
+      </div>
+      <div class="card rev">
+        <span class="badge p2">Phase 2 · Mo 16</span>
+        <h3 class="mt">ASC Surgical Core</h3>
+        <div class="val mt">$767K/mo</div>
+        <div class="meta">61% margin · insurance-backed</div>
+      </div>
+      <div class="card rev" style="border-color:var(--lime)">
+        <span class="badge p1">Mo 16+</span>
+        <h3 class="mt">Combined Run-Rate</h3>
+        <div class="val mt">$1.19M/mo</div>
+        <div class="meta">at stabilization</div>
+      </div>
+    </div>
+
+    <div class="eyebrow mt2" style="margin-top:48px">Service Categories</div>
+    <h2>6 Categories · 21 Revenue Lines</h2>
+    <div class="grid g3 mt2">
+      <div class="card catcard"><div class="ct">Phase 1</div><h3>Regenerative</h3><div class="lines">PRP · Hormone/Peptide/GLP · IV Therapy (NAD+)</div><div class="mo">$162.5K/mo</div></div>
+      <div class="card catcard"><div class="ct">Phase 1</div><h3>Wellness &amp; Aesthetics</h3><div class="lines">Botox &amp; Fillers · Laser · Morpheus8 · Emsculpt · CoolSculpting</div><div class="mo">$166.8K/mo</div></div>
+      <div class="card catcard"><div class="ct">Phase 1</div><h3>Recovery</h3><div class="lines">Hyperbaric O₂ · Compression/NeuFit · Red Light</div><div class="mo">$49.4K/mo</div></div>
+      <div class="card catcard"><div class="ct">Phase 1</div><h3>Diagnostics</h3><div class="lines">Advanced Biometrics · DNA · DUTCH · DEXA</div><div class="mo">$26.5K/mo</div></div>
+      <div class="card catcard"><div class="ct">Phase 1</div><h3>Aescape Robots</h3><div class="lines">2× robotic massage stations · 85% margin · zero physician dependency</div><div class="mo">$14K/mo</div></div>
+      <div class="card catcard" style="border-color:var(--blue)"><div class="ct" style="color:#cdd6ff">Phase 2</div><h3>Surgery</h3><div class="lines">Pain Mgmt · Podiatry · Orthopedic · Spine (MIS)</div><div class="mo">$767K/mo</div></div>
+    </div>
+
+    <details class="appendix">
+      <summary>
+        <span>
+          See the full 21-line procedure model
+          <span class="summary-sub">Pricing, margin, and monthly gross per line · for diligence-level review</span>
+        </span>
+      </summary>
+      <div class="inner">
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>#</th><th>Procedure</th><th class="num">Margin %</th><th class="num">Mid Price</th><th class="num">Monthly Gross</th></tr></thead>
+            <tbody>
+              <tr class="cat"><td colspan="5">Recovery · Phase 1</td></tr>
+              <tr><td>1</td><td>Aescape Massage ×2</td><td class="num">85%</td><td class="num">$70</td><td class="num">$14,000</td></tr>
+              <tr><td>6</td><td>Compression / NeuFit</td><td class="num">78%</td><td class="num">$112</td><td class="num">$9,000</td></tr>
+              <tr><td>4</td><td>Hyperbaric O₂</td><td class="num">80%</td><td class="num">$200</td><td class="num">$20,000</td></tr>
+              <tr><td>3</td><td>Red Light Therapy</td><td class="num">82%</td><td class="num">$75</td><td class="num">$6,000</td></tr>
+
+              <tr class="cat"><td colspan="5">Aescape Robots · Phase 1</td></tr>
+              <tr><td>1</td><td>Aescape Massage ×2 (robotic stations)</td><td class="num">85%</td><td class="num">$70</td><td class="num">$14,000</td></tr>
+
+              <tr class="cat"><td colspan="5">Regenerative · Phase 1</td></tr>
+              <tr><td>5</td><td>PRP Injections</td><td class="num">78%</td><td class="num">$1,150</td><td class="num">$57,500</td></tr>
+              <tr><td>7</td><td>Hormone / Peptide / GLP</td><td class="num">75%</td><td class="num">$600</td><td class="num">$24,000</td></tr>
+              <tr><td>8</td><td>IV Therapy (NAD+/Drips)</td><td class="num">72%</td><td class="num">$675</td><td class="num">$81,000</td></tr>
+
+              <tr class="cat"><td colspan="5">Wellness &amp; Aesthetics · Phase 1</td></tr>
+              <tr><td>9</td><td>Botox &amp; Fillers</td><td class="num">70%</td><td class="num">$725</td><td class="num">$58,000</td></tr>
+              <tr><td>10</td><td>Laser Platform</td><td class="num">70%</td><td class="num">$850</td><td class="num">$25,500</td></tr>
+              <tr><td>12</td><td>Morpheus8</td><td class="num">68%</td><td class="num">$1,168</td><td class="num">$35,025</td></tr>
+              <tr><td>14</td><td>Emsculpt</td><td class="num">67%</td><td class="num">$975</td><td class="num">$29,250</td></tr>
+              <tr><td>16</td><td>CoolSculpting</td><td class="num">65%</td><td class="num">$950</td><td class="num">$19,000</td></tr>
+
+              <tr class="cat"><td colspan="5">Diagnostics · Phase 1</td></tr>
+              <tr><td>11</td><td>Advanced Biometrics</td><td class="num">70%</td><td class="num">$225</td><td class="num">$4,500</td></tr>
+              <tr><td>13</td><td>DNA Analysis</td><td class="num">67%</td><td class="num">$400</td><td class="num">$6,000</td></tr>
+              <tr><td>15</td><td>DUTCH Testing</td><td class="num">65%</td><td class="num">$525</td><td class="num">$10,500</td></tr>
+              <tr><td>17</td><td>DEXA Scan</td><td class="num">62%</td><td class="num">$275</td><td class="num">$5,500</td></tr>
+
+              <tr class="cat"><td colspan="5">Surgery · Phase 2</td></tr>
+              <tr class="p2row"><td>18</td><td>Pain Mgmt (Epidural/RFA)</td><td class="num">68%</td><td class="num">$2,000</td><td class="num">$160,000</td></tr>
+              <tr class="p2row"><td>19</td><td>Podiatry</td><td class="num">62%</td><td class="num">$5,000</td><td class="num">$175,000</td></tr>
+              <tr class="p2row"><td>20</td><td>Orthopedic (Arthro/TJR)</td><td class="num">60%</td><td class="num">$9,000</td><td class="num">$144,000</td></tr>
+              <tr class="p2row"><td>21</td><td>Spine Surgery (MIS)</td><td class="num">58%</td><td class="num">$18,000</td><td class="num">$288,000</td></tr>
+
+              <tr class="total"><td colspan="2">TOTAL — 21 lines, 6 categories</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ TAB 4 — MODEL & FINANCIALS ============ -->
+<section class="tab-section" id="model">
+  <div class="subnav" id="subnav">
+    <a href="#m-phase1" class="on">Phase 1 Standalone</a>
+    <a href="#m-ramp">3-Year Ramp</a>
+    <a href="#m-pnl">P&amp;L &amp; Scenarios</a>
+  </div>
+
+  <!-- A) Phase 1 Standalone -->
+  <div class="sec anchor" id="m-phase1">
+    <div class="eyebrow">A · Phase 1 Standalone — Clinic Only, Zero ORs</div>
+    <h2>Profitable Before a Single Surgery</h2>
+    <p class="lead mt mb">This is the de-risk. The clinic alone — no OR, no surgical license, no payer contracts — clears $3.65M in net annually.</p>
+    <div class="tablewrap mt2">
+      <table>
+        <thead><tr><th>Category</th><th class="num">Monthly Gross</th><th class="num">Monthly Net</th><th class="num">Annual Gross</th><th class="num">Annual Net</th></tr></thead>
+        <tbody>
+          <tr><td>Regenerative</td><td class="num">$162,500</td><td class="num">$121,170</td><td class="num">$1,950,000</td><td class="num">$1,454,040</td></tr>
+          <tr><td>Aesthetics</td><td class="num">$166,775</td><td class="num">$114,214</td><td class="num">$2,001,300</td><td class="num">$1,370,574</td></tr>
+          <tr><td>Recovery</td><td class="num">$49,400</td><td class="num">$39,748</td><td class="num">$592,800</td><td class="num">$476,976</td></tr>
+          <tr><td>Diagnostics</td><td class="num">$26,500</td><td class="num">$17,405</td><td class="num">$318,000</td><td class="num">$208,860</td></tr>
+          <tr><td>Aescape Robots</td><td class="num">$14,000</td><td class="num">$11,900</td><td class="num">$168,000</td><td class="num">$142,800</td></tr>
+          <tr class="total"><td>PHASE 1 TOTAL</td><td class="num">$419,175</td><td class="num">$304,437</td><td class="num">$5,030,100</td><td class="num">$3,653,250</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- B) 3-Year Ramp -->
+  <div class="sec anchor" id="m-ramp">
+    <div class="eyebrow">B · 3-Year Ramp Model</div>
+    <h2>Path to Stabilization</h2>
+    <p class="lead mt mb">Monthly operating income from pre-open through stabilization.</p>
+
+    <div class="rampchart-wrap">
+      <div class="rampchart">
+        <span class="axis0">$0</span>
+        <div class="rc-col"><div class="rc-val neg" style="top:277px">–$273K</div><div class="rc-bar neg" style="height:82px"></div></div>
+        <div class="rc-col"><div class="rc-val neg" style="top:231px">–$121K</div><div class="rc-bar neg" style="height:36px"></div></div>
+        <div class="rc-col"><div class="rc-val neg" style="top:209px">–$47K</div><div class="rc-bar neg" style="height:14px"></div></div>
+        <div class="rc-col be"><div class="rc-flag">Breakeven ≈ Mo 14</div><div class="rc-val neg" style="top:199px">~$0</div><div class="rc-bar neg" style="height:4px"></div></div>
+        <div class="rc-col"><div class="rc-val pos" style="bottom:179px">+$212K</div><div class="rc-bar pos" style="height:64px"></div></div>
+        <div class="rc-col"><div class="rc-val pos" style="bottom:219px">+$346K</div><div class="rc-bar pos" style="height:104px"></div></div>
+        <div class="rc-col"><div class="rc-val pos" style="bottom:272px">+$522K</div><div class="rc-bar pos" style="height:157px"></div></div>
+      </div>
+      <div class="rc-months">
+        <span>Mo 0–3</span><span>Mo 3–6</span><span>Mo 6–12</span><span class="be">Mo 12–16</span><span>Mo 16–20</span><span>Mo 20–28</span><span>Mo 28–36</span>
+      </div>
+    </div>
+    <p class="ramp-note"><b>Breakeven Month ~14 — before the second OR is licensed.</b></p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Period</th><th>Status</th><th class="num">Mo Gross</th><th class="num">Mo Net</th><th class="num">Op Income/Mo</th></tr></thead>
+        <tbody>
+          <tr><td>Month 0–3</td><td>Pre-open</td><td class="num">$0</td><td class="num">$0</td><td class="num opn">–$273K</td></tr>
+          <tr><td>Month 3–6</td><td>Clinic soft launch ~50%</td><td class="num">~$210K</td><td class="num">~$152K</td><td class="num opn">~–$121K</td></tr>
+          <tr><td>Month 6–12</td><td>Clinic scaling 65–70%</td><td class="num">~$295–325K</td><td class="num">~$215–237K</td><td class="num opn">~–$36 to –$58K</td></tr>
+          <tr><td>Month 12–16</td><td>Near-stabilized; ORs finishing</td><td class="num">~$350–380K</td><td class="num">~$255–277K</td><td class="num opt">~–$18K to +$4K</td></tr>
+          <tr><td>Month 16–20</td><td>Both ORs open; surgical ramp</td><td class="num">~$650–800K</td><td class="num">~$435–535K</td><td class="num opp">~+$162–262K</td></tr>
+          <tr><td>Month 20–28</td><td>Full ramp, volume building</td><td class="num">~$850K–1.0M</td><td class="num">~$568–670K</td><td class="num opp">~+$295–397K</td></tr>
+          <tr><td>Month 28–36</td><td>Stabilized operations</td><td class="num">~$1.19M</td><td class="num">~$795K</td><td class="num opp">~+$522K</td></tr>
+          <tr class="total"><td>Annualized</td><td>At stabilization</td><td class="num">~$14.2M</td><td class="num">~$9.5M</td><td class="num">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- C) P&L + Scenarios -->
+  <div class="sec anchor" id="m-pnl">
+    <div class="eyebrow">C · Full P&amp;L at Stabilization</div>
+    <h2>Unit Economics</h2>
+    <div class="card mt2 pnl" style="max-width:720px">
+      <div class="line"><span>Gross Revenue</span><span>$1,186,175</span><span>100%</span></div>
+      <div class="line neg"><span>Variable Costs / COGS (~33%)</span><span>–$391,438</span><span></span></div>
+      <div class="line sub"><span>Monthly Net after COGS</span><span>$794,737</span><span>67%</span></div>
+      <div class="line neg tier"><span>Rent (6,500 SF NNN)</span><span>–$44,000</span><span></span></div>
+      <div class="line neg"><span>Clinical Staff</span><span>–$110,000</span><span></span></div>
+      <div class="line neg"><span>Admin / Management</span><span>–$28,000</span><span></span></div>
+      <div class="line neg"><span>Marketing &amp; CAC</span><span>–$35,000</span><span></span></div>
+      <div class="line neg"><span>Malpractice + Liability</span><span>–$12,000</span><span></span></div>
+      <div class="line neg"><span>Equipment Leases</span><span>–$22,000</span><span></span></div>
+      <div class="line neg"><span>Regulatory / Accreditation</span><span>–$8,000</span><span></span></div>
+      <div class="line neg"><span>Utilities / Software</span><span>–$14,000</span><span></span></div>
+      <div class="line sub neg"><span>Total Fixed Overhead</span><span>–$273,000</span><span>23%</span></div>
+      <div class="line op"><span>OPERATING INCOME / MO <span class="proj-tag">Projected · Base Case</span></span><span>$521,737</span><span>44%</span></div>
+      <div class="line foot"><span>Annualized operating income</span><span>~$6.26M</span><span></span></div>
+    </div>
+
+    <div class="eyebrow mt2">Scenario Band</div>
+    <h2>Low · Base · Upside</h2>
+    <p class="lead mt mb">Modeled operating-income outcomes across patient-volume and pricing assumptions.</p>
+    <div class="grid g3">
+      <div class="card scenario low">
+        <div class="sc-tag">Low</div>
+        <div class="sc-hero">$1.07–1.57M</div>
+        <div class="sc-sub">annual operating income</div>
+        <div class="row"><span>Gross/mo</span><span>$371,780</span></div>
+        <div class="row"><span>Net/mo</span><span>$247,562</span></div>
+        <div class="row"><span>Op income/mo</span><span>$89–131K</span></div>
+      </div>
+      <div class="card scenario base">
+        <div class="sc-pill">Base</div>
+        <div class="sc-tag">Expected</div>
+        <div class="sc-hero">~$6.3M</div>
+        <div class="sc-sub">annual operating income</div>
+        <div class="row"><span>Gross/mo</span><span>$1,186,175</span></div>
+        <div class="row"><span>Net/mo</span><span>$794,737</span></div>
+        <div class="row"><span>Op income/mo</span><span>~$522K</span></div>
+      </div>
+      <div class="card scenario up">
+        <div class="sc-tag">Upside</div>
+        <div class="sc-hero">$9.4–11.3M+</div>
+        <div class="sc-sub">annual operating income</div>
+        <div class="row"><span>Gross/mo</span><span>$1,588,600+</span></div>
+        <div class="row"><span>Net/mo</span><span>$1,060,594+</span></div>
+        <div class="row"><span>Op income/mo</span><span>$787–944K+</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAB 5 — FACILITY & TIMELINE ============ -->
+<section class="tab-section" id="facility">
+  <div class="sec">
+    <div class="eyebrow">A · Phased Timeline</div>
+    <h2>From Permits to Full ASC</h2>
+    <div class="timeline mt2">
+      <div class="tl-item"><div class="dot"></div><div class="when">Month 0–3</div><div class="what">Pre-Open / Permits</div><div class="desc">Licensing, accreditation pre-app, lease, design.</div></div>
+      <div class="tl-item"><div class="dot"></div><div class="when">Month 3–6</div><div class="what">Phase 1 Clinic Launch</div><div class="desc">16 non-surgical procedures active.</div></div>
+      <div class="tl-item"><div class="dot"></div><div class="when">Month 3–16</div><div class="what">OR Buildout (concurrent)</div><div class="desc">2 ORs + 1 Procedure Room under construction.</div></div>
+      <div class="tl-item"><div class="dot"></div><div class="when">Month 16</div><div class="what">Phase 2 Full ASC</div><div class="desc">All 21 procedures active.</div></div>
+      <div class="tl-item"><div class="dot"></div><div class="when">Month 16–36</div><div class="what">Stabilization</div><div class="desc">Physician ramp, payer contracting, volume build.</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="eyebrow">B · Facility Layout</div>
+    <h2>Class A · 6,500 SF · Playa Vista, CA</h2>
+    <div class="grid g4 mt2 facility">
+      <div class="card"><h3>2 Operating Rooms</h3><p class="muted">Surgical-grade, activated Month 16.</p></div>
+      <div class="card"><h3>1 Procedure Room</h3><p class="muted">Dedicated, activated Month 16.</p></div>
+      <div class="card"><h3>Exam + Recovery</h3><p class="muted">Exam rooms + post-op recovery bays.</p></div>
+      <div class="card"><h3>2× Aescape Robots</h3><p class="muted">Robotic massage stations (85% margin).</p></div>
+      <div class="card"><h3>IV + Regenerative</h3><p class="muted">IV therapy lounge + regenerative suite.</p></div>
+      <div class="card"><h3>Med Spa Suite</h3><p class="muted">Dedicated aesthetics &amp; injectables suite.</p></div>
+      <div class="card"><h3>2× Ammortal + HBOT</h3><p class="muted">Recovery chambers + hyperbaric oxygen.</p></div>
+      <div class="card"><h3>Support Spaces</h3><p class="muted">Kitchen, restrooms, clinical/admin offices.</p></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="eyebrow">C · Regulatory &amp; Accreditation Roadmap</div>
+    <div class="tablewrap mt2">
+      <table>
+        <thead><tr><th>Milestone</th><th>Timeline</th><th>Phase</th></tr></thead>
+        <tbody>
+          <tr><td>Lease execution</td><td>Month 0–1</td><td><span class="badge tbd">Pre-Open</span></td></tr>
+          <tr><td>Business entity + NPI setup</td><td>Month 0–1</td><td><span class="badge tbd">Pre-Open</span></td></tr>
+          <tr><td>CLIA certification (PRP/lab draws)</td><td>Month 1–3</td><td><span class="badge p1">Phase 1</span></td></tr>
+          <tr><td>Med spa / clinic permits</td><td>Month 1–3</td><td><span class="badge p1">Phase 1</span></td></tr>
+          <tr><td>Clinic soft open</td><td>Month 3–6</td><td><span class="badge p1">Phase 1</span></td></tr>
+          <tr><td>Joint Commission / AAAHC pre-application</td><td>Month 3–6</td><td><span class="badge p2">Phase 2 Prep</span></td></tr>
+          <tr><td>California SURGC application</td><td>Month 6–10</td><td><span class="badge p2">Phase 2 Prep</span></td></tr>
+          <tr><td>CAB / CDPH review</td><td>Month 10–14</td><td><span class="badge p2">Phase 2 Prep</span></td></tr>
+          <tr><td>OR construction completion</td><td>Month 16</td><td><span class="badge p2">Phase 2</span></td></tr>
+          <tr><td>AAAHC survey + accreditation</td><td>Month 14–17</td><td><span class="badge p2">Phase 2</span></td></tr>
+          <tr><td>Full ASC license activated</td><td>Month 16–18</td><td><span class="badge p2">Phase 2</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAB 6 — INVESTMENT ============ -->
+<section class="tab-section" id="investment">
+  <div class="sec">
+    <div class="eyebrow">The Ask</div>
+
+    <div class="ask-block">
+      <div class="ask-eyebrow">Raising</div>
+      <div class="ask-amt">$5M</div>
+      <p class="ask-sub">To open the Phase 1 clinic, build out two ORs and a procedure room, and carry working capital through Month 16 license activation.</p>
+      <div class="ask-grid">
+        <div>
+          <div class="ag-lbl">Instrument</div>
+          <div class="ag-val"><span class="ph">[INSTRUMENT]</span></div>
+        </div>
+        <div>
+          <div class="ag-lbl">Valuation</div>
+          <div class="ag-val"><span class="ph">[VALUATION]</span></div>
+        </div>
+        <div>
+          <div class="ag-lbl">First Revenue</div>
+          <div class="ag-val">Month 3–6 (clinic)</div>
+        </div>
+      </div>
+    </div>
+    <p class="muted" style="font-size:.82rem;margin-top:8px">Instrument and valuation finalized with lead investor.</p>
+  </div>
+
+  <div class="sec">
+    <div class="eyebrow">A · Use of Funds</div>
+    <h2>Where the $5M Goes</h2>
+    <p class="lead mt mb">Deployable range — $5M targeted, scaled to final buildout scope and equipment financing mix.</p>
+    <div class="tablewrap mt2">
+      <table>
+        <thead><tr><th>Use of Funds</th><th class="num">Estimate</th></tr></thead>
+        <tbody>
+          <tr><td>Phase 1 Clinic Buildout (2,500–3,000 SF @ $200–300/SF)</td><td class="num">$500K–$900K</td></tr>
+          <tr><td>Phase 2 OR Construction + Surgical Equipment (2 ORs + 1 PR)</td><td class="num">$2.5M–$3.25M</td></tr>
+          <tr><td>Aesthetic &amp; Recovery Equipment (Lasers, HBOT, Aescape, Ammortal)</td><td class="num">$400K–$800K</td></tr>
+          <tr><td>Working Capital (runway through Month 16 activation)</td><td class="num">$500K–$750K</td></tr>
+          <tr><td>Pre-Opening (accreditation, legal, malpractice, licensing)</td><td class="num">$500K–$600K</td></tr>
+          <tr class="total"><td>DEPLOYABLE RANGE</td><td class="num">$4.4M–$6.3M</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted mt" style="font-size:.82rem">Equipment financing, NMTC, and SBA 7(a) layers reduce required equity inside this range.</p>
+  </div>
+
+  <div class="sec">
+    <div class="eyebrow">B · Raise Structure</div>
+    <div class="grid g3 mt2">
+      <div class="callout"><h3>Phased Capital</h3><p class="muted mt">Phase 1 capital deploys to clinic + working capital; Phase 2 capital triggers at OR construction kickoff (Month 3+).</p></div>
+      <div class="callout"><h3>Physician Co-Ownership</h3><p class="muted mt">California ASC ownership rules permit surgeon equity stakes, which reduce outside capital and align surgical volume.</p></div>
+      <div class="callout"><h3>Financing Layers</h3><p class="muted mt">Equipment leases, NMTC, and SBA 7(a) considered for OR buildout — minimizing outside dilution.</p></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="eyebrow">C · Expansion &amp; Value Creation</div>
+    <h2>This Is a Platform Bet</h2>
+    <p class="lead mt mb">Playa Vista is the proof site. The model is built to replicate — same clinic-first sequencing, same payer mix, same wellness flywheel — across affluent metro pockets where Westside dynamics translate.</p>
+
+    <div class="exp-grid mt2">
+      <div class="exp-card">
+        <div class="ec-num">01 · Geographic Replication</div>
+        <h3>Westside Playbook, Other Metro Pockets</h3>
+        <p>The Playa Vista demand profile — concentrated affluence, undersupplied luxury healthcare, cash-pay aesthetics adoption — maps to Newport Beach, Manhattan Beach, Scottsdale, Austin, Miami, and equivalent pockets. Same template, lower buildout risk on site #2 onward.</p>
+        <div class="ec-tag">Site 2 → 4 within 36–48 months of stabilization</div>
+      </div>
+      <div class="exp-card">
+        <div class="ec-num">02 · Clinic-First Sequencing</div>
+        <h3>Each Site Cash-Flows Before It Cuts</h3>
+        <p>The same de-risk that makes Playa Vista investable repeats per site: clinic opens at Month 3–6, generating $300–400K/mo to fund the OR buildout. Capital efficiency compounds with each location.</p>
+        <div class="ec-tag">Self-funding scale</div>
+      </div>
+      <div class="exp-card">
+        <div class="ec-num">03 · Recurring Revenue Layer</div>
+        <h3>Membership &amp; Programs</h3>
+        <p>Longevity programming, hormone optimization, GLP-1 management, and IV/peptide therapy support membership and subscription structures — converting episodic visits into retained patients and predictable monthly revenue.</p>
+        <div class="ec-tag">LTV multiplier on every patient</div>
+      </div>
+      <div class="exp-card">
+        <div class="ec-num">04 · Proprietary Tech Moat</div>
+        <h3>Aescape, Ammortal, HBOT</h3>
+        <p>Robotic massage, recovery chambers, and hyperbaric oxygen run at 80–85% margins with near-zero physician dependency. They differentiate the patient experience and protect margins through platform expansion.</p>
+        <div class="ec-tag">Margin defense + brand differentiation</div>
+      </div>
+      <div class="exp-card">
+        <div class="ec-num">05 · Surgical-Wellness Loop</div>
+        <h3>Pre-Op Optimization → Post-Op Recovery</h3>
+        <p>Wellness drives surgical pipeline (pre-op patient optimization, peptide/regenerative prep) and surgical patients flow back into wellness (recovery, longevity follow-on). The integrated loop is the network effect competitors can't replicate piecemeal.</p>
+        <div class="ec-tag">Cross-stream patient flywheel</div>
+      </div>
+      <div class="exp-card">
+        <div class="ec-num">06 · Strategic Optionality</div>
+        <h3>Exit Routes Open at Each Stage</h3>
+        <p>Multi-site footprint opens conversations with hospital systems, PE-backed ASC roll-ups, and longevity platforms. Optionality is preserved at every stage — single site, regional cluster, or national platform — without forcing the decision now.</p>
+        <div class="ec-tag">Hospital · PE · Longevity platform paths</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAB 7 — TEAM & NEXT STEPS ============ -->
+<section class="tab-section" id="team">
+  <div class="sec">
+    <div class="eyebrow">A · Team</div>
+    <h2>Who Builds This</h2>
+    <div class="tablewrap mt2">
+      <table>
+        <thead><tr><th>Role</th><th>Phase Needed</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--lime);font-weight:700">Founder / Operator — Laura Brody</td><td>Both</td><td><span class="badge inplace">In Place</span></td></tr>
+          <tr><td>Medical Director (MD/DO)</td><td>Phase 1</td><td><span class="badge recruiting">Recruiting</span></td></tr>
+          <tr><td>Wellness Clinical Director</td><td>Phase 1</td><td><span class="badge recruiting">Recruiting</span></td></tr>
+          <tr><td>Aesthetics / Injector (NP or PA)</td><td>Phase 1</td><td><span class="badge recruiting">Recruiting</span></td></tr>
+          <tr><td>Chief AI Officer</td><td>Phase 1</td><td><span class="badge recruiting">Recruiting</span></td></tr>
+          <tr><td>Surgeon Partners (Ortho/Spine/Podiatry)</td><td>Phase 2</td><td><span class="badge recruiting">Recruiting</span></td></tr>
+          <tr><td>Anesthesia (MD vs. CRNA — TBD)</td><td>Phase 2</td><td><span class="badge tbd">TBD</span></td></tr>
+          <tr><td>Advisory Board</td><td>Both</td><td><span class="badge recruiting">Being assembled</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="eyebrow">B · Why Now / Why Us</div>
+    <div class="grid g3 mt2">
+      <div class="card"><h3>De-Risked Model</h3><p class="muted">Clinic revenue starts in 3–6 months — 10+ months before OR activation.</p></div>
+      <div class="card"><h3>Premium Rate Cards</h3><p class="muted">$1,150 PRP · $675 IV · $18K spine · $9K orthopedic.</p></div>
+      <div class="card"><h3>Founder Depth</h3><p class="muted">Operations, marketing, AI infrastructure, and healthcare compliance under one operator.</p></div>
+      <div class="card"><h3>80–85% Margin Anchors</h3><p class="muted">2× Aescape robots + 2× Ammortal chambers — high margin, zero physician dependency.</p></div>
+      <div class="card"><h3>Tailwinds</h3><p class="muted">Outpatient surgery + longevity spending growth align with the 16-month OR build.</p></div>
+      <div class="card"><h3>No Competitor</h3><p class="muted">Nothing on the Westside combines insurance surgery, cash aesthetics, and longevity.</p></div>
+    </div>
+    <div class="callout mt2">
+      <h3>Integrated Care Loop</h3>
+      <p class="muted mt">Wellness and longevity services aren't just ancillary — they create the patient pipeline, pre-surgical optimization, and post-surgical recovery that differentiate outcomes and drive repeat visits.</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="eyebrow">C · Next Steps</div>
+    <h2>The 8-Step Path</h2>
+    <div class="mt2">
+      <div class="step"><span class="n">01</span><p>Finalize capital raise structure and close investor commitments.</p></div>
+      <div class="step"><span class="n">02</span><p>Execute lease on Playa Vista Class A medical space (6,000–6,500 SF).</p></div>
+      <div class="step"><span class="n">03</span><p>Begin Phase 1 clinic buildout (targeting Month 3–6 open).</p></div>
+      <div class="step"><span class="n">04</span><p>File Joint Commission / AAAHC pre-application + California SURGC application.</p></div>
+      <div class="step"><span class="n">05</span><p>Procure Aescape robots, Ammortal chambers, HBOT, laser platform.</p></div>
+      <div class="step"><span class="n">06</span><p>Hire Wellness Clinical Director, Medical Director, aesthetics injector.</p></div>
+      <div class="step"><span class="n">07</span><p>Commence OR + Procedure Room construction at Month 3 (Month 16 target).</p></div>
+      <div class="step"><span class="n">08</span><p>Onboard surgeon partners + execute payer contracts (Work Comp, PI Lien).</p></div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <h2>LET'S BUILD THE WESTSIDE'S FIRST INTEGRATED ASC</h2>
+    <p class="lead center" style="margin:14px auto 0">Vertically integrated surgical care and longevity — under one roof, in Playa Vista.</p>
+    <a class="btn" href="mailto:Laura@culvercitysurgical.com">Contact the Founder</a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  PLAYA VISTA ASC &amp; REJUVENATION CLINIC · Playa Vista, CA · Est. 2026 · Confidential — For Qualified Investors Only
+</footer>
+
+<script>
+(function(){
+  var tabs=document.querySelectorAll('#tabs button');
+  var sections=document.querySelectorAll('.tab-section');
+  var nav=document.getElementById('tabs');
+  var burger=document.getElementById('hamburger');
+  var countersDone={};
+
+  function show(id){
+    sections.forEach(function(s){s.classList.toggle('active',s.id===id);});
+    tabs.forEach(function(b){b.classList.toggle('active',b.dataset.tab===id);});
+    nav.classList.remove('open');
+    window.scrollTo({top:0,behavior:'smooth'});
+    if(id==='overview' && !countersDone[id]){runCounters();countersDone[id]=true;}
+  }
+
+  tabs.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  document.querySelectorAll('[data-goto]').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.goto);});});
+
+  document.querySelectorAll('.tablewrap, .rampchart-wrap').forEach(function(w){
+    var h=document.createElement('div');
+    h.className='scrollhint';
+    h.appendChild(document.createTextNode('Swipe to see more '));
+    var arrow=document.createElement('span');
+    arrow.textContent='→';
+    h.appendChild(arrow);
+    w.parentNode.insertBefore(h,w);
+  });
+  burger.addEventListener('click',function(){nav.classList.toggle('open');});
+
+  function runCounters(){
+    document.querySelectorAll('#overview [data-count]').forEach(function(el){
+      var raw=el.getAttribute('data-count');
+      var suffix=el.getAttribute('data-suffix')||'';
+      if(raw.indexOf('-')>-1){
+        var parts=raw.split('-').map(Number);
+        animate(el,0,parts[1],function(v){
+          var lo=Math.round(v*parts[0]/parts[1]);
+          el.textContent=lo+'–'+v+suffix;
+        });
+      } else {
+        var target=Number(raw);
+        animate(el,0,target,function(v){el.textContent=v+suffix;});
+      }
+    });
+  }
+  function animate(el,from,to,render){
+    var dur=1100,start=null;
+    function step(ts){
+      if(!start)start=ts;
+      var p=Math.min((ts-start)/dur,1);
+      var eased=1-Math.pow(1-p,3);
+      var val=Math.round(from+(to-from)*eased);
+      render(val);
+      if(p<1)requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  runCounters();countersDone['overview']=true;
+
+  var subLinks=document.querySelectorAll('#subnav a');
+  var anchors=[].map.call(subLinks,function(a){return document.querySelector(a.getAttribute('href'));});
+  function syncSub(){
+    if(!document.getElementById('model').classList.contains('active'))return;
+    var pos=window.scrollY+160,idx=0;
+    anchors.forEach(function(sec,i){if(sec && sec.offsetTop<=pos)idx=i;});
+    subLinks.forEach(function(a,i){a.classList.toggle('on',i===idx);});
+  }
+  window.addEventListener('scroll',syncSub,{passive:true});
+})();
+</script>
+</body>
+</html>
