@@ -397,13 +397,13 @@ function slidePnl(){
     ["Utilities / Software", "–$14,000", "", "neg"],
     ["Total Fixed Overhead", "–$273,000", "23%", "sub"],
   ];
-  let ly = py + 0.28; const lh = 0.305;
+  let ly = py + 0.26; const lh = 0.27;
   lines.forEach(([l, v, pct, kind]) => {
     if (kind === "sub") s.addShape(pres.shapes.RECTANGLE, { x: px, y: ly - 0.02, w: pw, h: lh + 0.04, fill: { color: CARD2 }, line: { type: "none" } });
     s.addText(l, { x: px + 0.35, y: ly, w: pw - 2.6, h: lh, margin: 0, fontFace: BODY, fontSize: 11.5, bold: kind === "sub", color: kind === "sub" ? TEXT : SUB, valign: "middle" });
     s.addText(v, { x: px + pw - 2.35, y: ly, w: 1.6, h: lh, margin: 0, fontFace: BODY, fontSize: 11.5, bold: kind === "sub", color: kind === "neg" ? RED : (kind === "sub" ? LIME : TEXT), align: "right", valign: "middle" });
     if (pct) s.addText(pct, { x: px + pw - 0.7, y: ly, w: 0.5, h: lh, margin: 0, fontFace: BODY, fontSize: 9.5, color: SUB, align: "right", valign: "middle" });
-    ly += lh + 0.045;
+    ly += lh + 0.037;
   });
   s.addShape(pres.shapes.RECTANGLE, { x: px, y: ly + 0.05, w: pw, h: 0.02, fill: { color: LIME }, line: { type: "none" } });
   s.addText([
