@@ -14,6 +14,7 @@ desktop.ini
 
 # Deck build artifacts (keep build-deck.js, ignore renders + duplicates)
 deck-build/shots/
+deck-build/shots-proc/
 deck-build/*.pdf
 deck-build/*.pptx
 deck-build/node_modules/
