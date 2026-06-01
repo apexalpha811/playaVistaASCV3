@@ -354,9 +354,11 @@ function slideRamp(){
   title(s, "Path to Stabilization", 0.6, 0.87, 12, 30);
   const labels = ["Mo 0–3", "Mo 3–6", "Mo 6–12", "Mo 12–16", "Mo 16–20", "Mo 20–28", "Mo 28–36"];
   const vals = [-273, -121, -47, 0, 212, 346, 522];
+  // single series, per-point colors: negatives red, zero + positives lime
+  const barColors = vals.map(v => (v < 0 ? RED : LIME));
   s.addChart(pres.charts.BAR, [{ name: "Op Income / Mo ($K)", labels, values: vals }], {
     x: 0.6, y: 2.1, w: 12.1, h: 3.7, barDir: "col",
-    chartColors: ["B6C800"],
+    chartColors: barColors,
     chartArea: { fill: { color: BG } }, plotArea: { fill: { color: BG } },
     catAxisLabelColor: SUB, catAxisLabelFontFace: BODY, catAxisLabelFontSize: 11,
     valAxisLabelColor: SUB, valAxisLabelFontFace: BODY, valAxisLabelFontSize: 10,
@@ -408,7 +410,7 @@ function slidePnl(){
     { text: "OPERATING INCOME / MO  ", options: { color: TEXT, bold: true } },
     { text: "Projected · Base Case", options: { color: SUB, bold: false, fontSize: 8.5 } }
   ], { x: px + 0.35, y: ly + 0.16, w: pw - 2.4, h: 0.42, margin: 0, fontFace: BODY, fontSize: 13.5, valign: "middle" });
-  s.addText("$521,737", { x: px + pw - 2.35, y: ly + 0.16, w: 1.6, h: 0.42, margin: 0, fontFace: HEAD, fontSize: 15, bold: true, color: LIME, align: "right", valign: "middle" });
+  s.addText("$521,737", { x: px + pw - 2.35, y: ly + 0.16, w: 1.6, h: 0.42, margin: 0, fontFace: BODY, fontSize: 15, bold: true, color: LIME, align: "right", valign: "middle" });
   s.addText("44%", { x: px + pw - 0.7, y: ly + 0.16, w: 0.5, h: 0.42, margin: 0, fontFace: BODY, fontSize: 9.5, color: SUB, align: "right", valign: "middle" });
 
   const rx = 8.1, rw = 4.6;
