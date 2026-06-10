@@ -356,9 +356,58 @@ footer{border-top:1px solid var(--border);margin-top:40px;padding:34px 24px;text
 @media(min-width:1920px){
   :root{--maxw:1360px}
 }
+
+/* ====== WEBGL / GSAP HERO ENHANCEMENTS ====== */
+body.has-mouse{cursor:none}
+#webgl{position:fixed;inset:0;z-index:0;pointer-events:none;display:block}
+#cursor{position:fixed;width:10px;height:10px;background:var(--lime);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(182,200,0,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+body:not(.has-mouse) #cursor,body:not(.has-mouse) #cursor-ring{display:none}
+#spotlight{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:0}
+#curtain{position:fixed;inset:0;z-index:200;background:var(--lime)}
+#scanline{position:fixed;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--lime),transparent);z-index:190;top:0;pointer-events:none;opacity:0;box-shadow:0 0 24px 8px rgba(182,200,0,.6)}
+.hud-tl,.hud-br{position:absolute;width:40px;height:40px;pointer-events:none;opacity:.5}
+.hud-tl{top:clamp(40px,7vh,90px);left:0;border-top:1.5px solid var(--lime);border-left:1.5px solid var(--lime)}
+.hud-br{bottom:40px;right:0;border-bottom:1.5px solid var(--lime);border-right:1.5px solid var(--lime)}
+.hero-svg{position:absolute;right:-20px;top:40px;width:260px;height:260px;pointer-events:none;z-index:0;opacity:.2}
+.hero-svg path,.hero-svg line,.hero-svg circle,.hero-svg polyline{fill:none;stroke:var(--lime);stroke-width:1.2}
+@keyframes glitch{
+  0%{transform:skewX(0);text-shadow:none}
+  20%{transform:skewX(7deg);text-shadow:-4px 0 #ff003c,4px 0 #00e5ff}
+  40%{transform:skewX(-5deg);text-shadow:4px 0 #ff003c,-4px 0 #00e5ff}
+  60%{transform:skewX(3deg);text-shadow:-2px 0 #ff003c,2px 0 #00e5ff}
+  80%{transform:skewX(-1deg);text-shadow:2px 0 #ff003c,-2px 0 #00e5ff}
+  100%{transform:skewX(0);text-shadow:none}
+}
+.glitch-on{animation:glitch .14s steps(1) 1}
+.hero-rule{box-shadow:0 0 18px rgba(182,200,0,.7),0 0 40px rgba(182,200,0,.25)}
+.hero{transform-style:preserve-3d;perspective:1400px}
+.hm{position:relative;border-radius:12px;padding:2px;background:var(--card);--angle:0deg}
+.hm::before{content:"";position:absolute;inset:-1.5px;border-radius:13px;z-index:-1;background:conic-gradient(from var(--angle,0deg),var(--lime) 0%,transparent 18%,rgba(29,0,198,.7) 50%,transparent 68%,var(--lime) 100%);opacity:0;transition:opacity .4s}
+.hm:hover::before{opacity:1}
+.hm-inner{padding:4px 0 2px}
+@keyframes limePulse{0%,100%{text-shadow:0 0 0 transparent}50%{text-shadow:0 0 26px rgba(182,200,0,.7),0 0 52px rgba(182,200,0,.3)}}
+.hm-n.counted{animation:limePulse 2.2s ease-in-out 2}
+.hero .est i{box-shadow:0 0 10px var(--lime),0 0 22px rgba(182,200,0,.4)}
+@media(max-width:768px){
+  .hero-svg,.hud-tl,.hud-br{display:none}
+}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrambleTextPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/DrawSVGPlugin.min.js"></script>
 </head>
 <body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<div id="spotlight"></div>
+<div id="curtain"></div>
+<div id="scanline"></div>
+<canvas id="webgl"></canvas>
 
 <header>
   <div class="nav-inner">
@@ -383,32 +432,46 @@ footer{border-top:1px solid var(--border);margin-top:40px;padding:34px 24px;text
 
 <!-- ============ TAB 1 - OVERVIEW ============ -->
 <section class="tab-section active" id="overview">
-  <div class="hero">
-    <div class="eyebrow">Established 2026 · Playa Vista, CA</div>
-    <h1>PLAYA VISTA <span class="accent">ASC</span><br>&amp; REJUVENATION CLINIC</h1>
-    <div class="hero-rule"></div>
-    <p class="hero-claim">
+  <div class="hero" id="hero">
+    <div class="hud-tl"></div>
+    <div class="hud-br"></div>
+    <svg class="hero-svg" id="heroSvg" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+      <polyline points="280,0 280,60 220,60" class="svg-line"/>
+      <polyline points="0,280 0,220 60,220" class="svg-line"/>
+      <polyline points="220,60 220,100 180,100 180,140 240,140 240,180" class="svg-line"/>
+      <polyline points="60,220 60,180 100,180 100,140 40,140 40,100" class="svg-line"/>
+      <circle cx="180" cy="100" r="3" class="svg-dot"/><circle cx="240" cy="140" r="3" class="svg-dot"/>
+      <circle cx="100" cy="180" r="3" class="svg-dot"/><circle cx="40" cy="140" r="3" class="svg-dot"/>
+      <circle cx="140" cy="60" r="5" class="svg-dot"/><circle cx="140" cy="220" r="5" class="svg-dot"/>
+      <line x1="110" y1="140" x2="170" y2="140" class="svg-line"/>
+      <line x1="140" y1="110" x2="140" y2="170" class="svg-line"/>
+      <circle cx="140" cy="140" r="8" style="stroke-width:1.5" class="svg-dot"/>
+    </svg>
+    <div class="eyebrow" id="heroEyebrow">Established 2026 · Playa Vista, CA</div>
+    <h1 id="heroH1">PLAYA VISTA <span class="accent">ASC</span><br>&amp; REJUVENATION CLINIC</h1>
+    <div class="hero-rule" id="heroRule"></div>
+    <p class="hero-claim" id="heroClaim1">
       We are a hybrid surgery center and wellness clinic, built from day one to keep <span class="hl">adapting to surgical innovations.</span>
     </p>
-    <p class="hero-claim" style="font-size:1.15rem;font-weight:600;color:var(--sub);margin-top:14px">
+    <p class="hero-claim" id="heroClaim2" style="font-size:1.15rem;font-weight:600;color:#fff;margin-top:14px">
       The OR power, space, and data infrastructure are spec'd up front to absorb surgical automation and advanced recovery as each proves out. The facility modernizes by design, not by costly retrofit.
     </p>
-    <p class="hero-claim" style="font-size:1.15rem;font-weight:600;color:var(--sub);margin-top:14px">
+    <p class="hero-claim" id="heroClaim3" style="font-size:1.15rem;font-weight:600;color:#fff;margin-top:14px">
       <span class="hl">The clinic is projected to be cash-flow positive on its own</span>, more than 10 months before the first OR opens.
     </p>
-    <div class="est">
+    <div class="est" id="heroEst">
       <span><i></i>Established 2026</span>
       <span><i></i>Playa Vista, California</span>
       <span><i></i>Confidential Investor Brief</span>
     </div>
-    <div class="hero-cta">
-      <button class="btn" data-goto="opportunity">Explore the Opportunity →</button>
+    <div class="hero-cta" id="heroCta">
+      <button class="btn" id="ctaBtn" data-goto="opportunity">Explore the Opportunity →</button>
       <a class="btn-ghost" href="mailto:Laura@culvercitysurgical.com">Contact</a>
     </div>
-    <div class="hero-metrics">
-      <div class="hm"><div class="hm-n">$43B+</div><div class="hm-l">U.S. ASC market</div></div>
-      <div class="hm"><div class="hm-n">~67%</div><div class="hm-l">Blended margin at stabilization</div></div>
-      <div class="hm"><div class="hm-n">~$8.4M</div><div class="hm-l">Annual operating income<span class="proj-tag">Projected · Base Case</span></div></div>
+    <div class="hero-metrics" id="heroMetrics">
+      <div class="hm"><div class="hm-inner"><div class="hm-n" data-to="43" data-prefix="$" data-suffix="B+">$43B+</div><div class="hm-l">U.S. ASC market</div></div></div>
+      <div class="hm"><div class="hm-inner"><div class="hm-n" data-to="67" data-prefix="~" data-suffix="%">~67%</div><div class="hm-l">Blended margin at stabilization</div></div></div>
+      <div class="hm"><div class="hm-inner"><div class="hm-n" data-to="8.4" data-prefix="~$" data-suffix="M">~$8.4M</div><div class="hm-l">Annual operating income<span class="proj-tag">Projected · Base Case</span></div></div></div>
     </div>
   </div>
 
@@ -955,75 +1018,305 @@ footer{border-top:1px solid var(--border);margin-top:40px;padding:34px 24px;text
 </footer>
 
 <script>
+/* ============================================================
+   TAB NAVIGATION (unchanged logic)
+   ============================================================ */
 (function(){
   var tabs=document.querySelectorAll('#tabs button');
   var sections=document.querySelectorAll('.tab-section');
   var nav=document.getElementById('tabs');
   var burger=document.getElementById('hamburger');
-  var countersDone={};
 
   function show(id){
     sections.forEach(function(s){s.classList.toggle('active',s.id===id);});
     tabs.forEach(function(b){b.classList.toggle('active',b.dataset.tab===id);});
     nav.classList.remove('open');
     window.scrollTo({top:0,behavior:'smooth'});
-    if(id==='overview' && !countersDone[id]){runCounters();countersDone[id]=true;}
   }
-
   tabs.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
   document.querySelectorAll('[data-goto]').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.goto);});});
-
   document.querySelectorAll('.tablewrap, .rampchart-wrap').forEach(function(w){
     var h=document.createElement('div');
     h.className='scrollhint';
     h.appendChild(document.createTextNode('Swipe to see more '));
-    var arrow=document.createElement('span');
-    arrow.textContent='→';
-    h.appendChild(arrow);
+    var arrow=document.createElement('span');arrow.textContent='→';h.appendChild(arrow);
     w.parentNode.insertBefore(h,w);
   });
   burger.addEventListener('click',function(){nav.classList.toggle('open');});
 
+  /* Problem-section counters (data-count attr, not hero metrics) */
   function runCounters(){
     document.querySelectorAll('#overview [data-count]').forEach(function(el){
       var raw=el.getAttribute('data-count');
       var suffix=el.getAttribute('data-suffix')||'';
       if(raw.indexOf('-')>-1){
         var parts=raw.split('-').map(Number);
-        animate(el,0,parts[1],function(v){
-          var lo=Math.round(v*parts[0]/parts[1]);
-          el.textContent=lo+'–'+v+suffix;
-        });
+        anim(el,0,parts[1],function(v){var lo=Math.round(v*parts[0]/parts[1]);el.textContent=lo+'–'+v+suffix;});
       } else {
-        var target=Number(raw);
-        animate(el,0,target,function(v){el.textContent=v+suffix;});
+        anim(el,0,Number(raw),function(v){el.textContent=v+suffix;});
       }
     });
   }
-  function animate(el,from,to,render){
+  function anim(el,from,to,render){
     var dur=1100,start=null;
-    function step(ts){
+    (function step(ts){
       if(!start)start=ts;
-      var p=Math.min((ts-start)/dur,1);
-      var eased=1-Math.pow(1-p,3);
-      var val=Math.round(from+(to-from)*eased);
-      render(val);
+      var p=Math.min((ts-start)/dur,1),eased=1-Math.pow(1-p,3);
+      render(Math.round(from+(to-from)*eased));
       if(p<1)requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
+    })(performance.now());
   }
-  runCounters();countersDone['overview']=true;
+  runCounters();
 
   var subLinks=document.querySelectorAll('#subnav a');
   var anchors=[].map.call(subLinks,function(a){return document.querySelector(a.getAttribute('href'));});
   function syncSub(){
     if(!document.getElementById('model').classList.contains('active'))return;
     var pos=window.scrollY+160,idx=0;
-    anchors.forEach(function(sec,i){if(sec && sec.offsetTop<=pos)idx=i;});
+    anchors.forEach(function(sec,i){if(sec&&sec.offsetTop<=pos)idx=i;});
     subLinks.forEach(function(a,i){a.classList.toggle('on',i===idx);});
   }
   window.addEventListener('scroll',syncSub,{passive:true});
 })();
+
+/* ============================================================
+   GSAP + THREE.JS HERO
+   ============================================================ */
+gsap.registerPlugin(ScrollTrigger, SplitText, ScrambleTextPlugin, DrawSVGPlugin);
+const isMouse = window.matchMedia('(pointer:fine)').matches;
+if (isMouse) document.body.classList.add('has-mouse');
+
+/* ---- THREE.JS WebGL Scene ---- */
+(function initWebGL(){
+  const canvas   = document.getElementById('webgl');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.autoClear = false;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
+
+  const bgScene  = new THREE.Scene();
+  const bgCamera = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+
+  const VERT = `varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position,1.0);}`;
+  const FRAG = `
+    precision highp float;
+    uniform float uTime;uniform vec2 uRes;varying vec2 vUv;
+    mat2 rot(float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c);}
+    vec2 hash2(vec2 p){p=vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3)));return fract(sin(p)*43758.5453);}
+    float noise(vec2 p){
+      vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);
+      float a=dot(hash2(i)*2.-1.,f),b=dot(hash2(i+vec2(1,0))*2.-1.,f-vec2(1,0));
+      float c=dot(hash2(i+vec2(0,1))*2.-1.,f-vec2(0,1)),d=dot(hash2(i+vec2(1,1))*2.-1.,f-vec2(1,1));
+      return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);
+    }
+    float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<6;i++){v+=a*noise(p);p=rot(.45)*p*2.1+vec2(.1,.2);a*=.5;}return v;}
+    void main(){
+      vec2 uv=vUv;uv.x*=uRes.x/uRes.y;
+      float t=uTime*.10;
+      vec2 q=vec2(fbm(uv+vec2(0.,t)),fbm(uv+vec2(5.2,t*1.1)));
+      vec2 r=vec2(fbm(uv+3.5*q+vec2(1.7,9.2)+t*.14),fbm(uv+3.5*q+vec2(8.3,2.8)+t*.11));
+      float f=fbm(uv+3.5*r+t*.08);f=f*.5+.5;
+      vec3 dark=vec3(.039,.039,.059),indigo=vec3(.11,.0,.78),lime=vec3(.71,.78,.0),white=vec3(.88,.98,.80);
+      vec3 col=dark;
+      col=mix(col,indigo,smoothstep(.20,.52,f));
+      col=mix(col,lime,smoothstep(.52,.76,f));
+      col=mix(col,white,smoothstep(.82,1.0,f));
+      col*=.20;
+      vec2 vn=vUv-.5;col*=1.-dot(vn,vn)*2.2;
+      gl_FragColor=vec4(col,1.0);
+    }
+  `;
+  const bgMat = new THREE.ShaderMaterial({
+    uniforms:{uTime:{value:0},uRes:{value:new THREE.Vector2(window.innerWidth,window.innerHeight)}},
+    vertexShader:VERT,fragmentShader:FRAG,depthWrite:false
+  });
+  bgScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2),bgMat));
+
+  const scene  = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(65,window.innerWidth/window.innerHeight,.1,100);
+  camera.position.set(0,0,3.5);
+
+  const icoMat = new THREE.LineBasicMaterial({color:0xB6C800,transparent:true,opacity:.28});
+  const ico    = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(1.55,1)),icoMat);
+  scene.add(ico);
+
+  const octMat = new THREE.LineBasicMaterial({color:0x3322ff,transparent:true,opacity:.22});
+  const oct    = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.OctahedronGeometry(1.0,2)),octMat);
+  scene.add(oct);
+
+  const N=2200,pos=new Float32Array(N*3),col=new Float32Array(N*3);
+  const palette=[new THREE.Color(0xB6C800),new THREE.Color(0xB6C800),new THREE.Color(0x1D00C6),new THREE.Color(0xffffff)];
+  for(let i=0;i<N;i++){
+    const phi=Math.acos(1-2*(i+.5)/N),theta=Math.PI*(1+Math.sqrt(5))*i,r=2.1+(Math.random()-.5)*1.4;
+    pos[i*3]=r*Math.sin(phi)*Math.cos(theta);pos[i*3+1]=r*Math.sin(phi)*Math.sin(theta);pos[i*3+2]=r*Math.cos(phi);
+    const c=palette[Math.floor(Math.random()*palette.length)];col[i*3]=c.r;col[i*3+1]=c.g;col[i*3+2]=c.b;
+  }
+  const pGeo=new THREE.BufferGeometry();
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  pGeo.setAttribute('color',new THREE.BufferAttribute(col,3));
+  const cloud=new THREE.Points(pGeo,new THREE.PointsMaterial({size:.018,vertexColors:true,transparent:true,opacity:.75,sizeAttenuation:true,blending:THREE.AdditiveBlending,depthWrite:false}));
+  scene.add(cloud);
+
+  let mx=0,my=0,rotX=0,rotY=0;
+  window.addEventListener('mousemove',e=>{mx=(e.clientX/window.innerWidth-.5)*2;my=(e.clientY/window.innerHeight-.5)*2;});
+  window.addEventListener('resize',()=>{
+    renderer.setSize(window.innerWidth,window.innerHeight);
+    camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();
+    bgMat.uniforms.uRes.value.set(window.innerWidth,window.innerHeight);
+  });
+  let scrollY=0;
+  window.addEventListener('scroll',()=>{scrollY=window.scrollY;},{passive:true});
+
+  let elapsed=0;
+  gsap.ticker.add(dt=>{
+    elapsed+=dt*.001;
+    bgMat.uniforms.uTime.value=elapsed;
+    rotY+=(mx*.55-rotY)*.04;rotX+=(-my*.32-rotX)*.04;
+    ico.rotation.x=elapsed*.14+rotX;ico.rotation.y=elapsed*.19+rotY;
+    oct.rotation.x=-elapsed*.18+rotX*.8;oct.rotation.y=-elapsed*.14+rotY*.8;
+    cloud.rotation.y=elapsed*.04+rotY*.25;cloud.rotation.x=elapsed*.025+rotX*.15;
+    camera.position.y=-scrollY*.0008;
+    renderer.clear();renderer.render(bgScene,bgCamera);renderer.clearDepth();renderer.render(scene,camera);
+  });
+  gsap.ticker.lagSmoothing(0);
+})();
+
+/* ---- Custom Cursor ---- */
+if(isMouse){
+  const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+  const cx=gsap.quickTo(cur,'x',{duration:.08,ease:'power3'}),cy=gsap.quickTo(cur,'y',{duration:.08,ease:'power3'});
+  const rx=gsap.quickTo(ring,'x',{duration:.3,ease:'power3'}),ry=gsap.quickTo(ring,'y',{duration:.3,ease:'power3'});
+  window.addEventListener('mousemove',e=>{cx(e.clientX);cy(e.clientY);rx(e.clientX);ry(e.clientY);});
+  document.querySelectorAll('a,button,.hm').forEach(el=>{
+    el.addEventListener('mouseenter',()=>gsap.to(cur,{width:22,height:22,duration:.15}));
+    el.addEventListener('mouseleave',()=>gsap.to(cur,{width:10,height:10,duration:.15}));
+  });
+}
+
+/* ---- Spotlight ---- */
+if(isMouse){
+  const spot=document.getElementById('spotlight');
+  window.addEventListener('mousemove',e=>{
+    spot.style.background=`radial-gradient(circle 500px at ${e.clientX}px ${e.clientY}px,rgba(182,200,0,.055) 0%,transparent 70%)`;
+  });
+  gsap.to(spot,{opacity:1,duration:1.2,delay:2.2});
+}
+
+/* ---- Spinning conic borders ---- */
+(function(){let a=0;function t(){a=(a+.55)%360;document.querySelectorAll('.hm').forEach(el=>el.style.setProperty('--angle',a+'deg'));requestAnimationFrame(t);}t();})();
+
+/* ---- Main DOM Timeline ---- */
+window.addEventListener('DOMContentLoaded',function(){
+  gsap.set('#heroEyebrow',{opacity:0,y:20});
+  gsap.set('#heroRule',{scaleX:0});
+  gsap.set(['#heroClaim1','#heroClaim2','#heroClaim3'],{opacity:0,y:26});
+  gsap.set('#heroEst span',{opacity:0,y:16});
+  gsap.set('#heroCta > *',{opacity:0,scale:.88,y:12});
+  gsap.set('#heroMetrics .hm',{opacity:0,y:38,rotateX:16});
+  gsap.set('.hud-tl,.hud-br',{opacity:0,scale:.7});
+  gsap.set('.svg-line',{drawSVG:'0%'});
+  gsap.set('.svg-dot',{scale:0,transformOrigin:'center',opacity:0});
+  gsap.set('#heroH1',{opacity:0});
+
+  const h1=document.getElementById('heroH1');
+  const split=new SplitText(h1,{type:'chars,words'});
+  gsap.set(split.chars,{opacity:0});
+
+  const master=gsap.timeline();
+
+  /* scanline sweep */
+  master
+    .set('#scanline',{opacity:1,top:0})
+    .to('#scanline',{top:'100vh',duration:.9,ease:'power2.in'})
+    .set('#scanline',{opacity:0});
+
+  /* curtain lifts */
+  master
+    .to('#curtain',{yPercent:-100,duration:1.05,ease:'expo.inOut'},'-=.2')
+    .set('#curtain',{display:'none'});
+
+  /* HUD brackets */
+  master.to('.hud-tl,.hud-br',{opacity:.5,scale:1,duration:.5,ease:'back.out(2)'},'-=.3');
+
+  /* eyebrow */
+  master.to('#heroEyebrow',{opacity:1,y:0,duration:.5},'-=.1');
+
+  /* ScrambleText H1 */
+  master.to(h1,{
+    opacity:1,duration:1.5,
+    scrambleText:{text:'PLAYA VISTA ASC\n& REJUVENATION CLINIC',chars:'█▓▒░XVZA#01@',revealDelay:.25,speed:.65},
+    ease:'none',
+    onStart:()=>gsap.set(split.chars,{opacity:1})
+  },'-=.1');
+
+  /* SVG circuit */
+  master
+    .to('.svg-line',{drawSVG:'100%',duration:1.4,stagger:.07,ease:'power2.inOut'},'<')
+    .to('.svg-dot',{scale:1,opacity:1,duration:.3,stagger:.06,ease:'back.out(2.5)'},'-=.5');
+
+  /* glitch flash */
+  master.call(()=>{
+    h1.classList.add('glitch-on');
+    h1.innerHTML='PLAYA VISTA <span class="accent">ASC</span><br>&amp; REJUVENATION CLINIC';
+    setTimeout(()=>h1.classList.remove('glitch-on'),145);
+  },null,'+=.04');
+
+  master
+    .to('#heroRule',{scaleX:1,duration:.6,ease:'power2.inOut'},'-=.05')
+    .to('#heroClaim1',{opacity:1,y:0,duration:.55},'-=.05')
+    .to('#heroClaim2',{opacity:1,y:0,duration:.5},'-=.3')
+    .to('#heroClaim3',{opacity:1,y:0,duration:.5},'-=.3')
+    .to('#heroEst span',{opacity:1,y:0,duration:.45,stagger:.08},'-=.25')
+    .to('#heroCta > *',{opacity:1,scale:1,y:0,duration:.55,stagger:.1,ease:'back.out(1.7)'},'-=.2')
+    .to('#heroMetrics .hm',{opacity:1,y:0,rotateX:0,duration:.65,stagger:.13,ease:'power3.out',transformPerspective:700},'-=.2');
+
+  /* hero metric counters */
+  document.querySelectorAll('.hm-n[data-to]').forEach(el=>{
+    const to=parseFloat(el.dataset.to),prefix=el.dataset.prefix||'',suffix=el.dataset.suffix||'';
+    const isFloat=String(to).includes('.');
+    const proxy={val:0};
+    ScrollTrigger.create({trigger:el,start:'top 92%',once:true,onEnter:()=>{
+      gsap.to(proxy,{val:to,duration:1.9,ease:'power3.out',
+        onUpdate:()=>{el.textContent=prefix+(isFloat?proxy.val.toFixed(1):Math.round(proxy.val))+suffix;},
+        onComplete:()=>{el.textContent=prefix+(isFloat?to.toFixed(1):to)+suffix;el.classList.add('counted');}
+      });
+    }});
+  });
+
+  /* 3D mouse tilt */
+  if(isMouse){
+    const hero=document.getElementById('hero');
+    const tX=gsap.quickTo(hero,'rotateY',{duration:.7,ease:'power2'});
+    const tY=gsap.quickTo(hero,'rotateX',{duration:.7,ease:'power2'});
+    window.addEventListener('mousemove',e=>{
+      const cx=window.innerWidth/2,cy=window.innerHeight/2;
+      tX((e.clientX-cx)/cx*5);tY(-(e.clientY-cy)/cy*3.5);
+    });
+    hero.addEventListener('mouseleave',()=>gsap.to(hero,{rotateX:0,rotateY:0,duration:1.1,ease:'elastic.out(1,.5)'}));
+  }
+
+  /* magnetic buttons */
+  if(isMouse){
+    document.querySelectorAll('.btn,.btn-ghost').forEach(btn=>{
+      btn.addEventListener('mousemove',e=>{
+        const r=btn.getBoundingClientRect();
+        gsap.to(btn,{x:(e.clientX-r.left-r.width/2)*.25,y:(e.clientY-r.top-r.height/2)*.25,duration:.22,ease:'power2.out'});
+      });
+      btn.addEventListener('mouseleave',()=>gsap.to(btn,{x:0,y:0,duration:.65,ease:'elastic.out(1,.45)'}));
+    });
+  }
+
+  /* ripple on CTA */
+  const ctaBtn=document.getElementById('ctaBtn');
+  if(ctaBtn) ctaBtn.addEventListener('click',function(e){
+    const r=this.getBoundingClientRect(),rip=document.createElement('span'),d=Math.max(r.width,r.height);
+    rip.className='ripple';
+    Object.assign(rip.style,{width:d+'px',height:d+'px',left:(e.clientX-r.left-d/2)+'px',top:(e.clientY-r.top-d/2)+'px'});
+    this.appendChild(rip);setTimeout(()=>rip.remove(),560);
+  });
+});
 </script>
 </body>
 </html>
