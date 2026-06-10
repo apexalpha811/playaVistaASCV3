@@ -396,7 +396,6 @@ body:not(.has-mouse) #cursor,body:not(.has-mouse) #cursor-ring{display:none}
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/SplitText.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrambleTextPlugin.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/DrawSVGPlugin.min.js"></script>
 </head>
 <body>
@@ -1081,7 +1080,7 @@ body:not(.has-mouse) #cursor,body:not(.has-mouse) #cursor-ring{display:none}
 /* ============================================================
    GSAP + THREE.JS HERO
    ============================================================ */
-gsap.registerPlugin(ScrollTrigger, SplitText, ScrambleTextPlugin, DrawSVGPlugin);
+gsap.registerPlugin(ScrollTrigger, SplitText, DrawSVGPlugin);
 const isMouse = window.matchMedia('(pointer:fine)').matches;
 if (isMouse) document.body.classList.add('has-mouse');
 
@@ -1146,13 +1145,10 @@ window.addEventListener('DOMContentLoaded',function(){
   /* eyebrow */
   master.to('#heroEyebrow',{opacity:1,y:0,duration:.5},'-=.1');
 
-  /* ScrambleText H1 */
-  master.to(h1,{
-    opacity:1,duration:1.5,
-    scrambleText:{text:'PLAYA VISTA ASC\n& REJUVENATION CLINIC',chars:'█▓▒░XVZA#01@',revealDelay:.25,speed:.65},
-    ease:'none',
-    onStart:()=>gsap.set(split.chars,{opacity:1})
-  },'-=.1');
+  /* H1 word stagger reveal */
+  gsap.set(split.words,{opacity:0,y:40});
+  master.to(h1,{opacity:1,duration:0},'-=.1');
+  master.to(split.words,{opacity:1,y:0,duration:.6,stagger:.08,ease:'power3.out'},'-=.1');
 
   /* SVG circuit */
   master
